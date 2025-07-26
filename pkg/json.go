@@ -24,6 +24,7 @@ type JSONTaskStatusResponse struct {
 	Status     string       `json:"status"`                // Общий статус задачи
 	ArchiveURL string       `json:"archive_url,omitempty"` // Ссылка на архив, если готов
 	Files      []tasks.File `json:"files,omitempty"`       // Статусы по каждому файлу
+
 }
 
 // Ответ при ошибках (общий)

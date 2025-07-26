@@ -4,7 +4,10 @@ import (
 	"DownloaderGo/internal/tasks"
 	"DownloaderGo/pkg"
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"os"
+	"path/filepath"
 )
 
 func CreateTask(w http.ResponseWriter, r *http.Request, tm *tasks.TaskManager) {
@@ -50,7 +53,7 @@ func GetTask(w http.ResponseWriter, r *http.Request, tm *tasks.TaskManager) {
 	json.NewEncoder(w).Encode(resp)
 }
 
-func addLink(w http.ResponseWriter, r *http.Request, tm *tasks.TaskManager) {
+func AddLink(w http.ResponseWriter, r *http.Request, tm *tasks.TaskManager) {
 	if r.Method != http.MethodPost {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
@@ -73,4 +76,26 @@ func addLink(w http.ResponseWriter, r *http.Request, tm *tasks.TaskManager) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(resp)
+}
+
+func DownloadArchive(w http.ResponseWriter, r *http.Request, tm *tasks.TaskManager) {
+	id := r.URL.Query().Get("id")
+	if id == "" {
+		http.Error(w, "missing id", http.StatusBadRequest)
+		return
+	}
+
+	// путь до архива
+	archivePath := filepath.Join("files", id, "archive.zip")
+
+	// проверка существования
+	if _, err := os.Stat(archivePath); os.IsNotExist(err) {
+		http.Error(w, "archive not found", http.StatusNotFound)
+		return
+	}
+
+	// установка заголовков и отдача файла
+	w.Header().Set("Content-Type", "application/zip")
+	w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s.zip\"", id))
+	http.ServeFile(w, r, archivePath)
 }

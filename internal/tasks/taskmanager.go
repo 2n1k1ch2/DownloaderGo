@@ -1,7 +1,6 @@
 package tasks
 
 import (
-	"DownloaderGo/pkg"
 	"errors"
 	"sync"
 )
@@ -15,6 +14,7 @@ type TaskManager struct {
 func NewTaskManager() *TaskManager {
 	return &TaskManager{
 		activeTasks: make(chan struct{}, 3),
+		tasks:       make(map[string]*Task),
 	}
 }
 
