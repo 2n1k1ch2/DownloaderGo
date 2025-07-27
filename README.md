@@ -29,11 +29,11 @@ cURL пример:
 curl -X POST "http://localhost:8080/add-link?id=TASK_ID&url=https://example.com/sample.pdf"
 
 ## Получение статуса задачи
-GET /task-status?id={task_id}
+GET /get-task?id={task_id}
 
 cURL пример:
 
-curl "http://localhost:8080/task-status?id=TASK_ID"
+curl "http://localhost:8080/get-task?id=TASK_ID"
 
 ##  Скачивание архива
 GET /Download?id={task_id}
