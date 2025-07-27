@@ -97,7 +97,7 @@ func (tsk *Task) Run() {
 		archivePath := filepath.Join("files", tsk.Id, "archive.zip")
 		err := archiver.CreateZip(archivePath, downloadedFiles)
 		if err == nil {
-			tsk.ArchiveURL = fmt.Sprintf("http://localhost:8080/files/%s/archive.zip", tsk.Id)
+			tsk.ArchiveURL = fmt.Sprintf("http://localhost:8080/Download?id=%s", tsk.Id)
 		}
 	}
 
