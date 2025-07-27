@@ -42,7 +42,7 @@ GET /Download?id={task_id}
 
 -O сохраняет архив под оригинальным именем
 
--J говорит curl использовать имя из заголовка Content-Disposition или их аналоги
+-J говорит curl использовать имя из заголовка Content-Disposition или аналог флага в других приложениях
 
 cURL пример:curl -OJ "http://localhost:8080/Download?id=TASK_ID"
 
