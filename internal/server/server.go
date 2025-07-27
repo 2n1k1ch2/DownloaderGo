@@ -13,14 +13,15 @@ type Server struct {
 }
 
 func NewServer() *Server {
+
 	mux := http.NewServeMux()
 	s := &Server{
 		Mux:         *mux,
-		Handler:     mux, // вот это критично
+		Handler:     mux,
 		TaskManager: tasks.NewTaskManager(),
 	}
 
-	// Регистрируем ручки
+	// Регистрация ручек
 	mux.HandleFunc("/create-task", func(w http.ResponseWriter, r *http.Request) {
 		handlers.CreateTask(w, r, s.TaskManager)
 	})

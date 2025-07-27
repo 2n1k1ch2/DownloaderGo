@@ -87,10 +87,11 @@ func TestTask_Run(t *testing.T) {
 	if _, err := os.Stat(archivePath); err != nil {
 		t.Errorf("archive not created: %v", err)
 	}
-
-	// Чистим
-	err = os.RemoveAll("files")
-	if err != nil {
-		t.Error(err)
-	}
+	defer func() {
+		err = os.RemoveAll("files")
+		if err != nil {
+			t.Error(err)
+		}
+	}()
+	
 }

@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	os.RemoveAll("files")
 	serv := server.NewServer()
 	wd, _ := os.Getwd()
 	fmt.Println("WORKING DIR:", wd)

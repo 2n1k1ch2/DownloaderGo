@@ -24,5 +24,5 @@ func DownloadFile(url string) ([]byte, error) {
 
 func IsAllowedFile(url string) bool {
 	ext := strings.ToLower(filepath.Ext(url))
-	return ext == ".pdf" || ext == ".jpeg" || ext == ".jpg"
+	return ext == ".pdf" || ext == ".jpeg"
 }
